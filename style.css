@@ -1,0 +1,109 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1f1c2c, #9287a9);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.clock-container {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 
+        -8px -8px 15px rgba(255, 255, 255, 0.1),
+        8px 8px 15px rgba(0, 0, 0, 0.4),
+        inset -8px -8px 15px rgba(255, 255, 255, 0.1),
+        inset 8px 8px 15px rgba(0, 0, 0, 0.4);
+    background: #2b2b2b;
+}
+
+.clock {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Penanda detik */
+.clock::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.hour-hand, .minute-hand, .second-hand {
+    position: absolute;
+    left: 50%;
+    transform-origin: bottom;
+    border-radius: 5px;
+    transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.6, 1);
+}
+
+.hour-hand {
+    width: 8px;
+    height: 65px;
+    top: calc(50% - 65px);
+    background-color: #f7f7f7;
+    z-index: 3;
+}
+
+.minute-hand {
+    width: 6px;
+    height: 90px;
+    top: calc(50% - 90px);
+    background-color: #c7c7c7;
+    z-index: 2;
+}
+
+.second-hand {
+    width: 2px;
+    height: 120px;
+    top: calc(50% - 120px);
+    background-color: #ff5252;
+    z-index: 4;
+}
+
+.center-pin {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.number {
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f0f0f0;
+    transform: translate(-50%, -50%);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Memposisikan setiap angka */
+.number-1 { top: 12.5%; left: 78%; }
+.number-2 { top: 28%; left: 91%; }
+.number-3 { top: 50%; left: 95.5%; }
+.number-4 { top: 72%; left: 91%; }
+.number-5 { top: 87.5%; left: 78%; }
+.number-6 { top: 93%; left: 50%; }
+.number-7 { top: 87.5%; left: 22%; }
+.number-8 { top: 72%; left: 9%; }
+.number-9 { top: 50%; left: 4.5%; }
+.number-10 { top: 28%; left: 9%; }
+.number-11 { top: 12.5%; left: 22%; }
+.number-12 { top: 7%; left: 50%; }
