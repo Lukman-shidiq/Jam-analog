@@ -3,18 +3,34 @@ const minuteHand = document.querySelector('.minute-hand');
 const secondHand = document.querySelector('.second-hand');
 
 function setClock() {
-    // Menggunakan Intl.DateTimeFormat untuk mendapatkan waktu WIB
-    const wibTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
-    const now = new Date(wibTime);
+    // Dapatkan waktu UTC (Universal Time Coordinated)
+    const now = new Date();
+    const utcHours = now.getUTCHours();
+    const utcMinutes = now.getUTCMinutes();
+    const utcSeconds = now.getUTCSeconds();
 
-    const seconds = now.getSeconds();
-    const minutes = now.getMinutes();
-    const hours = now.getHours();
+    // Tambahkan 7 jam untuk mendapatkan Waktu Indonesia Barat (WIB)
+    let wibHours = utcHours + 7;
+    let wibMinutes = utcMinutes;
+    const wibSeconds = utcSeconds;
 
-    // Perhitungan sudut rotasi
-    const secondsDegrees = ((seconds / 60) * 360) + 90;
-    const minutesDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90; // Tambah gerakan halus menit
-    const hoursDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30) + 90;
+    // Sesuaikan jam jika lebih dari 23 (hari berikutnya)
+    if (wibHours >= 24) {
+        wibHours -= 24;
+    }
+
+    // Konversi jam dari format 24 jam ke 12 jam
+    if (wibHours >= 12) {
+        wibHours -= 12;
+    }
+    if (wibHours === 0) {
+        wibHours = 12; // Menyesuaikan jam 0 (tengah malam) menjadi 12
+    }
+
+    // Perhitungan sudut rotasi jarum
+    const secondsDegrees = ((wibSeconds / 60) * 360) + 90;
+    const minutesDegrees = ((wibMinutes / 60) * 360) + ((wibSeconds / 60) * 6) + 90;
+    const hoursDegrees = ((wibHours / 12) * 360) + ((wibMinutes / 60) * 30) + 90;
 
     // Menerapkan rotasi ke elemen jarum
     secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
@@ -22,8 +38,9 @@ function setClock() {
     hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
 }
 
-// Perbarui jam setiap milidetik agar jarum detik bergerak halus
+// Perbarui jam setiap detik
 setInterval(setClock, 1000);
 
-// Panggil fungsi segera agar jarum tidak diam saat halaman dimuat
+// Panggil fungsi segera saat halaman dimuat
 setClock();
+);
